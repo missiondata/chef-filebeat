@@ -6,6 +6,7 @@
 default_config = { 'filebeat.inputs' => [], 'filebeat.prospectors' => [], 'filebeat.modules' => [], 'prospectors' => [] }
 
 resource_name :filebeat_config
+provides :filebeat_config
 
 property :service_name, String, default: 'filebeat'
 property :filebeat_install_resource_name, String, default: 'default'
