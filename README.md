@@ -48,7 +48,6 @@ This cookbook is tested against current Chef version. But, the cookbook is known
 
 ## Cookbook Dependency
 
-- `homebrew`
 - `elastic_repo`
 - `yum-plugin-versionlock`
 - `runit`

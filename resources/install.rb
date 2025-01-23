@@ -36,30 +36,6 @@ action :create do
     end
   end
 
-  ## install filebeat MacOS
-  if platform?('mac_os_x')
-    include_recipe 'homebrew'
-
-    # The brew package does not create the 'filebeat' directory in '/etc'.
-    directory '/etc/filebeat' do
-      action :create
-      mode '755'
-      owner 'root'
-      group 'wheel'
-    end
-
-    # Need to drop the .plist file before the package install as brew will try to start the service immediately.
-    cookbook_file '/Library/LaunchDaemons/co.elastic.filebeat.plist' do
-      action :create
-      content 'co.elastic.filebeat.plist'
-    end
-
-    # This install depends on brew for the installation of filebeat.
-    package 'filebeat' do
-      action :install
-    end
-  end
-
   ## install filebeat windows
   if platform?('windows')
     package_url = win_package_url(new_resource.version, new_resource.windows_package_url)
