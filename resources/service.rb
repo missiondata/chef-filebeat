@@ -27,6 +27,7 @@ action :create do
     block do
     end
     notifies :run, 'ruby_block[purge_prospectors_dir]'
+    only_if { new_resource.purge_prospectors_dir }
   end
 
   with_run_context(:root) do
@@ -39,12 +40,12 @@ action :create do
     end
   end
 
-  ruby_block 'delay filebeat service start' do
-    block do
-    end
-    notifies :start, "service[#{new_resource.service_name}]"
-    not_if { new_resource.disable_service }
-  end
+  # ruby_block 'delay filebeat service start' do
+  #   block do
+  #   end
+  #   notifies :start, "service[#{new_resource.service_name}]"
+  #   not_if { new_resource.disable_service }
+  # end
 
   service_action = new_resource.disable_service ? %i(disable stop) : %i(enable)
 
